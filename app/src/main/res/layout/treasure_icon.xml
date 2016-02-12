@@ -3,9 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-<<<<<<< Updated upstream
-=======
-    
+
     <android.support.v7.widget.CardView
         android:id="@+id/treasure_card"
         android:layout_width="125dp"
@@ -17,6 +15,5 @@
             android:layout_height="match_parent" />
 
     </android.support.v7.widget.CardView>
->>>>>>> Stashed changes
 
 </android.support.v7.widget.CardView>
