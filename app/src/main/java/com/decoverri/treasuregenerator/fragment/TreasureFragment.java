@@ -22,7 +22,7 @@ public class TreasureFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.treasures, container, false);
-        GridView treasuresView = (GridView) view.findViewById(R.id.treasures_list);
+        GridView treasuresView = (GridView) view.findViewById(R.id.treasures_types);
         List<TreasureIcon> treasureIcons = new ArrayList<>();
         treasuresView.setAdapter(new TreasureAdapter(getActivity(), treasureIcons));
         return view;
