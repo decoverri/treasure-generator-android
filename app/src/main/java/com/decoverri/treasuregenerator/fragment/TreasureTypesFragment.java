@@ -25,8 +25,13 @@ public class TreasureTypesFragment extends Fragment {
         treasuresView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ValuesFragment fragment = new ValuesFragment();
+                Bundle bundle = new Bundle();
+                bundle.putLong("id", id);
+                fragment.setArguments(bundle);
+
                 GeneratorActivity activity = (GeneratorActivity) getActivity();
-                activity.changeFragment(new PricesFragment(id));
+                activity.changeReturnableFragment(fragment);
             }
         });
         return view;

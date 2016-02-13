@@ -4,14 +4,16 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
  * Created by decoverri on 12/02/16.
  */
-public class PricesDao extends SQLiteOpenHelper {
+public class ValuesDao extends SQLiteOpenHelper {
 
-    public PricesDao(Context context) {
+    public ValuesDao(Context context) {
         super(context, "Generator", null, 1);
     }
 
@@ -25,7 +27,7 @@ public class PricesDao extends SQLiteOpenHelper {
 
     }
 
-    public List<Double> getPrices(long id) {
-        return null;
+    public List<Double> getValues(long id) {
+        return new ArrayList<>(Arrays.asList(1.0, 2.0, 3.0, 4.0));
     }
 }

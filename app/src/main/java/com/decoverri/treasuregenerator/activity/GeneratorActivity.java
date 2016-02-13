@@ -15,12 +15,13 @@ public class GeneratorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generator);
 
-        changeFragment(new TreasureTypesFragment());
+        changeReturnableFragment(new TreasureTypesFragment());
     }
 
-    public void changeFragment(Fragment fragment){
+    public void changeReturnableFragment(Fragment fragment){
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.generator_fragment, fragment);
+        transaction.addToBackStack(null);
         transaction.commit();
     }
 }
