@@ -56,11 +56,11 @@ public class TreasureTypeFactory {
     }
 
     @NonNull
-    private ArrayList<Integer> getValues(JSONObject typeJSON) throws JSONException {
+    private ArrayList<Double> getValues(JSONObject typeJSON) throws JSONException {
         JSONArray jsonArray = typeJSON.getJSONObject("values").getJSONArray("value");
-        ArrayList<Integer> values = new ArrayList<>();
+        ArrayList<Double> values = new ArrayList<>();
         for (int i = 0; i < jsonArray.length(); i++){
-            values.add(jsonArray.getJSONObject(i).getInt("value"));
+            values.add(jsonArray.getJSONObject(i).getDouble("value"));
         }
         return values;
     }
