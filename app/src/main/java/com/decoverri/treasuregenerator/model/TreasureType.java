@@ -1,14 +1,12 @@
 package com.decoverri.treasuregenerator.model;
 
-import com.decoverri.treasuregenerator.R;
-
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by decoverri on 04/02/16.
  */
-public class TreasureType {
-    private Long id;
+public class TreasureType implements Serializable {
     private Integer drawable;
     private Character letter;
     private String name;
@@ -17,18 +15,6 @@ public class TreasureType {
 
     public TreasureType(int drawable) {
         this.drawable = drawable;
-    }
-
-    public TreasureType() {
-
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public int getDrawable() {

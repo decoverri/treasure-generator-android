@@ -10,8 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.decoverri.treasuregenerator.R;
-import com.decoverri.treasuregenerator.dao.ValuesDao;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -24,8 +24,7 @@ public class ValuesFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        values = new ValuesDao(getActivity()).getValues(getArguments().getLong("id"));
-
+        values = Arrays.asList(1.0, 2.0, 3.0, 4.0);
         View view = inflater.inflate(R.layout.values, container, false);
         ListView listView = (ListView) view.findViewById(R.id.values);
         listView.setAdapter(new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, values));

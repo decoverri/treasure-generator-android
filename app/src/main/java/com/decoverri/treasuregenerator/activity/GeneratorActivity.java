@@ -1,16 +1,16 @@
 package com.decoverri.treasuregenerator.activity;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
 import com.decoverri.treasuregenerator.R;
 import com.decoverri.treasuregenerator.fragment.TreasureTypesFragment;
 import com.decoverri.treasuregenerator.model.TreasureType;
 import com.decoverri.treasuregenerator.util.TreasureTypeCreator;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.List;
 
 public class GeneratorActivity extends AppCompatActivity {
@@ -24,7 +24,9 @@ public class GeneratorActivity extends AppCompatActivity {
 
         treasureTypes = new TreasureTypeCreator(this).createFromJson(R.raw.treasure_types);
 
-        changeReturnableFragment(new TreasureTypesFragment());
+        changeReturnableFragmentWithArgument(new TreasureTypesFragment(), "treasureType", (Serializable) treasureTypes);
+
+        getResources().getIdentifier("coins", "drawable", getPackageName());
     }
 
     public void changeReturnableFragment(Fragment fragment){
@@ -32,5 +34,12 @@ public class GeneratorActivity extends AppCompatActivity {
         transaction.replace(R.id.generator_fragment, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    public void changeReturnableFragmentWithArgument(Fragment fragment, String key, Serializable argument){
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(key, argument);
+        fragment.setArguments(bundle);
+        changeReturnableFragment(fragment);
     }
 }

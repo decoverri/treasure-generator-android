@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <GridView
-        android:id="@+id/treasures_types"
+        android:id="@+id/treasure_types"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

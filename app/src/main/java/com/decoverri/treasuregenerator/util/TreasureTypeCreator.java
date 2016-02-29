@@ -2,7 +2,6 @@ package com.decoverri.treasuregenerator.util;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.decoverri.treasuregenerator.model.TreasureType;
 
@@ -29,7 +28,6 @@ public class TreasureTypeCreator {
         try {
             while(scanner.hasNext()){
                 String treasureTypeJSON = scanner.nextLine();
-                Log.i("DECO", treasureTypeJSON);
                 JSONObject jsonObject = new JSONObject(treasureTypeJSON);
                 JSONObject typeJSON = jsonObject.getJSONObject("type");
 
@@ -44,12 +42,18 @@ public class TreasureTypeCreator {
 
     @NonNull
     private TreasureType createTreasureType(JSONObject typeJSON) throws JSONException {
-        TreasureType type = new TreasureType();
+        TreasureType type = new TreasureType(getDrawableId(typeJSON.getString("drawable")));
+
         type.setLetter(typeJSON.getString("letter").charAt(0));
         type.setName(typeJSON.getString("name"));
         type.setDescription(typeJSON.getString("description"));
         type.setValues(getValues(typeJSON));
+
         return type;
+    }
+
+    private int getDrawableId(String drawable) {
+        return activity.getResources().getIdentifier(drawable, "drawable", activity.getPackageName());
     }
 
     @NonNull
