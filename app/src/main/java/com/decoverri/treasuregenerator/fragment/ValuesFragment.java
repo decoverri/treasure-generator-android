@@ -16,6 +16,7 @@ import android.widget.ListView;
 import com.decoverri.treasuregenerator.R;
 import com.decoverri.treasuregenerator.activity.GeneratorActivity;
 import com.decoverri.treasuregenerator.model.TreasureType;
+import com.decoverri.treasuregenerator.task.GenerateTask;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -45,7 +46,7 @@ public class ValuesFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 GeneratorActivity activity = (GeneratorActivity) getActivity();
-                activity.changeReturnableFragment(new ResultFragment());
+                new GenerateTask(activity).execute();
             }
         });
 

@@ -11,6 +11,9 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.decoverri.treasuregenerator.R;
+import com.decoverri.treasuregenerator.model.Treasure;
+
+import java.util.List;
 
 /**
  * Created by decoverri on 29/02/16.
@@ -21,14 +24,16 @@ public class ResultFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         TableLayout view = (TableLayout) inflater.inflate(R.layout.result, container, false);
 
-        for (int i = 0; i < 5; i++){
+        List<Treasure> treasures = (List<Treasure>) getArguments().getSerializable("result");
+
+        for (Treasure treasure : treasures) {
             TableRow row = (TableRow) inflater.inflate(R.layout.result_row, container, false);
 
             TextView name = (TextView) row.findViewById(R.id.result_name);
-            name.setText("tesouro 1");
+            name.setText(treasure.getName());
 
             TextView value = (TextView) row.findViewById(R.id.result_value);
-            value.setText("1000.0");
+            value.setText(treasure.getValue().toString());
 
             view.addView(row);
         }
