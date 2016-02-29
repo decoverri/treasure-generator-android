@@ -15,10 +15,10 @@ import java.util.Scanner;
 /**
  * Created by decoverri on 29/02/16.
  */
-public class TreasureTypeCreator {
+public class TreasureTypeFactory {
     private Activity activity;
 
-    public TreasureTypeCreator(Activity activity) {
+    public TreasureTypeFactory(Activity activity) {
         this.activity = activity;
     }
 
@@ -28,8 +28,7 @@ public class TreasureTypeCreator {
         try {
             while(scanner.hasNext()){
                 String treasureTypeJSON = scanner.nextLine();
-                JSONObject jsonObject = new JSONObject(treasureTypeJSON);
-                JSONObject typeJSON = jsonObject.getJSONObject("type");
+                JSONObject typeJSON = new JSONObject(treasureTypeJSON);
 
                 TreasureType type = createTreasureType(typeJSON);
                 treasureTypes.add(type);
@@ -42,7 +41,7 @@ public class TreasureTypeCreator {
 
     @NonNull
     private TreasureType createTreasureType(JSONObject typeJSON) throws JSONException {
-        TreasureType type = new TreasureType(getDrawableId(typeJSON.getString("drawable")));
+        TreasureType type = new TreasureType(getDrawableId(typeJSON.getString("resource")));
 
         type.setLetter(typeJSON.getString("letter").charAt(0));
         type.setName(typeJSON.getString("name"));

@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.decoverri.treasuregenerator.R;
 import com.decoverri.treasuregenerator.fragment.TreasureTypesFragment;
 import com.decoverri.treasuregenerator.model.TreasureType;
-import com.decoverri.treasuregenerator.util.TreasureTypeCreator;
+import com.decoverri.treasuregenerator.util.TreasureTypeFactory;
 
 import java.io.Serializable;
 import java.util.List;
@@ -22,7 +22,7 @@ public class GeneratorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generator);
 
-        treasureTypes = new TreasureTypeCreator(this).createFromJson(R.raw.treasure_types);
+        treasureTypes = new TreasureTypeFactory(this).createFromJson(R.raw.treasure_types);
 
         changeReturnableFragmentWithArgument(new TreasureTypesFragment(), "treasureType", (Serializable) treasureTypes);
 
