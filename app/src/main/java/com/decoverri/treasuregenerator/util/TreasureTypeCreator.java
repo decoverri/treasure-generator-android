@@ -1,0 +1,64 @@
+package com.decoverri.treasuregenerator.util;
+
+import android.app.Activity;
+import android.support.annotation.NonNull;
+import android.util.Log;
+
+import com.decoverri.treasuregenerator.model.TreasureType;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+/**
+ * Created by decoverri on 29/02/16.
+ */
+public class TreasureTypeCreator {
+    private Activity activity;
+
+    public TreasureTypeCreator(Activity activity) {
+        this.activity = activity;
+    }
+
+    public ArrayList<TreasureType> createFromJson(int json) {
+        Scanner scanner = new Scanner(activity.getResources().openRawResource(json));
+        ArrayList<TreasureType> treasureTypes = new ArrayList<>();
+        try {
+            while(scanner.hasNext()){
+                String treasureTypeJSON = scanner.nextLine();
+                Log.i("DECO", treasureTypeJSON);
+                JSONObject jsonObject = new JSONObject(treasureTypeJSON);
+                JSONObject typeJSON = jsonObject.getJSONObject("type");
+
+                TreasureType type = createTreasureType(typeJSON);
+                treasureTypes.add(type);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return treasureTypes;
+    }
+
+    @NonNull
+    private TreasureType createTreasureType(JSONObject typeJSON) throws JSONException {
+        TreasureType type = new TreasureType();
+        type.setLetter(typeJSON.getString("letter").charAt(0));
+        type.setName(typeJSON.getString("name"));
+        type.setDescription(typeJSON.getString("description"));
+        type.setValues(getValues(typeJSON));
+        return type;
+    }
+
+    @NonNull
+    private ArrayList<Integer> getValues(JSONObject typeJSON) throws JSONException {
+        JSONArray jsonArray = typeJSON.getJSONObject("values").getJSONArray("value");
+        ArrayList<Integer> values = new ArrayList<>();
+        for (int i = 0; i < jsonArray.length(); i++){
+            values.add(jsonArray.getJSONObject(i).getInt("value"));
+        }
+        return values;
+    }
+}
