@@ -1,7 +1,5 @@
 package com.decoverri.treasuregenerator.task;
 
-import android.util.Log;
-
 import com.decoverri.treasuregenerator.model.Treasure;
 import com.decoverri.treasuregenerator.model.TypeValueDTO;
 import com.decoverri.treasuregenerator.util.JSONConverter;
@@ -21,7 +19,6 @@ public class LootClient {
 
     public List<Treasure> post(TypeValueDTO typeValue) {
         String json = converter.typeValueToJSON(typeValue);
-        Log.i("DECO", json);
         List<Treasure> treasures = null;
 
 //        try {
