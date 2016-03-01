@@ -2,6 +2,7 @@ package com.decoverri.treasuregenerator.task;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
 
 import com.decoverri.treasuregenerator.activity.GeneratorActivity;
 import com.decoverri.treasuregenerator.fragment.ResultFragment;
@@ -25,7 +26,7 @@ public class GenerateTask extends AsyncTask<TypeValueDTO, Object, List<Treasure>
 
     @Override
     protected void onPreExecute() {
-        progress = ProgressDialog.show(activity, "Loot!", "wait patiently");
+        progress = ProgressDialog.show(activity, null, "Looting...");
     }
 
     @Override
@@ -36,6 +37,11 @@ public class GenerateTask extends AsyncTask<TypeValueDTO, Object, List<Treasure>
     @Override
     protected void onPostExecute(List<Treasure> treasures) {
         progress.dismiss();
-        activity.changeReturnableFragmentWithArgument(new ResultFragment(), "result", (Serializable) treasures);
+        if(treasures != null){
+            activity.changeReturnableFragmentWithArgument(new ResultFragment(), "result", (Serializable) treasures);
+        }else {
+            new AlertDialog.Builder(activity).setTitle("Dragon in the server!").setMessage("Please try again later.")
+                    .setPositiveButton("Ok", null).show();
+        }
     }
 }
