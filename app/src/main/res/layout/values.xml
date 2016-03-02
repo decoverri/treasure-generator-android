@@ -3,6 +3,31 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <LinearLayout
+        android:id="@+id/type_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/type_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:textColor="@color/type_name"/>
+
+        <TextView
+            android:id="@+id/type_letter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:layout_gravity="right"
+            android:gravity="right"
+            android:textColor="@color/type_letter"/>
+
+    </LinearLayout>
+
     <ListView
         android:id="@+id/values"
         android:layout_width="match_parent"
