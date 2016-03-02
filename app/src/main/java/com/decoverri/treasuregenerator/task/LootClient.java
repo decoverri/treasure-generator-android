@@ -38,7 +38,6 @@ public class LootClient {
             writer.close();
 
             connection.connect();
-            Log.i("DECO", connection.getContent().toString());
             String result = new Scanner(connection.getInputStream()).nextLine();
             treasures = converter.resultToTreasures(result);
 

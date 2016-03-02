@@ -6,6 +6,11 @@
     <GridView
         android:id="@+id/treasure_types"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:columnWidth="150dp"
+        android:numColumns="auto_fit"
+        android:gravity="center"
+        android:verticalSpacing="20dp"
+        android:paddingTop="20dp"/>
 
 </LinearLayout>
