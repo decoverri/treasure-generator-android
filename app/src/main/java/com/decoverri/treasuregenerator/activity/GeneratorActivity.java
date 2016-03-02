@@ -24,9 +24,22 @@ public class GeneratorActivity extends AppCompatActivity {
 
         treasureTypes = new TreasureTypeFactory(this).createFromJson(R.raw.treasure_types);
 
-        changeReturnableFragmentWithArgument(new TreasureTypesFragment(), "treasureType", (Serializable) treasureTypes);
+        changeFragmentWithArgument(new TreasureTypesFragment(), "treasureType", (Serializable) treasureTypes);
 
         getResources().getIdentifier("coins", "drawable", getPackageName());
+    }
+
+    public void changeFragment(Fragment fragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.generator_fragment, fragment);
+        transaction.commit();
+    }
+
+    public void changeFragmentWithArgument(Fragment fragment, String key, Serializable argument) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(key, argument);
+        fragment.setArguments(bundle);
+        changeFragment(fragment);
     }
 
     public void changeReturnableFragment(Fragment fragment){
