@@ -9,6 +9,10 @@ import android.widget.TextView;
 
 import com.decoverri.treasuregenerator.R;
 import com.decoverri.treasuregenerator.model.TreasureType;
+import com.decoverri.treasuregenerator.model.Value;
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by decoverri on 02/03/16.

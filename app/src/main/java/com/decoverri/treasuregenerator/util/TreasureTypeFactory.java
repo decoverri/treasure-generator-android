@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.support.annotation.NonNull;
 
 import com.decoverri.treasuregenerator.model.TreasureType;
+import com.decoverri.treasuregenerator.model.Value;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -56,11 +57,11 @@ public class TreasureTypeFactory {
     }
 
     @NonNull
-    private ArrayList<Double> getValues(JSONObject typeJSON) throws JSONException {
+    private ArrayList<Value> getValues(JSONObject typeJSON) throws JSONException {
         JSONArray jsonArray = typeJSON.getJSONObject("values").getJSONArray("value");
-        ArrayList<Double> values = new ArrayList<>();
+        ArrayList<Value> values = new ArrayList<>();
         for (int i = 0; i < jsonArray.length(); i++){
-            values.add(jsonArray.getJSONObject(i).getDouble("value"));
+            values.add(new Value(jsonArray.getJSONObject(i).getDouble("value")));
         }
         return values;
     }

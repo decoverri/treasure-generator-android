@@ -12,6 +12,7 @@ import com.decoverri.treasuregenerator.R;
 import com.decoverri.treasuregenerator.activity.GeneratorActivity;
 import com.decoverri.treasuregenerator.model.TreasureType;
 import com.decoverri.treasuregenerator.model.TypeValueDTO;
+import com.decoverri.treasuregenerator.model.Value;
 import com.decoverri.treasuregenerator.task.GenerateTask;
 import com.decoverri.treasuregenerator.viewHelper.ValuesHelper;
 
@@ -37,7 +38,7 @@ public class ValuesFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 GeneratorActivity activity = (GeneratorActivity) getActivity();
 
-                TypeValueDTO typeValue = new TypeValueDTO((Double) parent.getItemAtPosition(position), type.getLetter());
+                TypeValueDTO typeValue = new TypeValueDTO(((Value) parent.getItemAtPosition(position)).getValue(), type.getLetter());
 
                 new GenerateTask(activity).execute(typeValue);
             }

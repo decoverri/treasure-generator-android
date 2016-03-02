@@ -1,6 +1,7 @@
 package com.decoverri.treasuregenerator.model;
 
 import java.io.Serializable;
+import java.text.NumberFormat;
 
 /**
  * Created by decoverri on 29/02/16.
@@ -23,5 +24,9 @@ public class Treasure implements Serializable {
 
     public Double getValue() {
         return value;
+    }
+
+    public String getFormattedValue(){
+        return NumberFormat.getInstance().format(value) + " gp";
     }
 }

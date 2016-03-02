@@ -11,7 +11,7 @@ public class TreasureType implements Serializable {
     private Character letter;
     private String name;
     private String description;
-    private ArrayList<Double> values;
+    private ArrayList<Value> values;
 
     public TreasureType(int drawable) {
         this.drawable = drawable;
@@ -45,11 +45,11 @@ public class TreasureType implements Serializable {
         return description;
     }
 
-    public void setValues(ArrayList<Double> values) {
+    public void setValues(ArrayList<Value> values) {
         this.values = values;
     }
 
-    public ArrayList<Double> getValues() {
+    public ArrayList<Value> getValues() {
         return values;
     }
 }
