@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.decoverri.treasuregenerator.R;
 import com.decoverri.treasuregenerator.fragment.TreasureTypesFragment;
 import com.decoverri.treasuregenerator.model.TreasureType;
+import com.decoverri.treasuregenerator.task.PingTask;
 import com.decoverri.treasuregenerator.util.TreasureTypeFactory;
 
 import java.io.Serializable;
@@ -22,11 +23,11 @@ public class GeneratorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generator);
 
+        new PingTask(this).execute();
+
         treasureTypes = new TreasureTypeFactory(this).createFromJson(R.raw.treasure_types);
 
         changeFragmentWithArgument(new TreasureTypesFragment(), "treasureType", (Serializable) treasureTypes);
-
-        getResources().getIdentifier("coins", "drawable", getPackageName());
     }
 
     public void changeFragment(Fragment fragment) {
