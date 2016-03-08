@@ -29,7 +29,7 @@ public class LootClient {
         List<Treasure> treasures = null;
 
         try {
-            URL url = new URL("http://treasure-generator.decoverri.com/android/generate");
+            URL url = new URL("http://treasure-generator.decoverri.com/json/generate");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
             connection.setDoOutput(true);
