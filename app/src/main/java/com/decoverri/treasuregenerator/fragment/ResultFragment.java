@@ -27,6 +27,7 @@ public class ResultFragment extends Fragment {
 
         helper = new ResultHelper(view, this);
 
+        helper.setTitle();
         helper.fillResultTable(inflater, container);
 
         setHasOptionsMenu(true);

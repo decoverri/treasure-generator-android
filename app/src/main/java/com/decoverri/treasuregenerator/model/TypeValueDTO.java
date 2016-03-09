@@ -1,9 +1,11 @@
 package com.decoverri.treasuregenerator.model;
 
+import java.io.Serializable;
+
 /**
  * Created by decoverri on 29/02/16.
  */
-public class TypeValueDTO {
+public class TypeValueDTO implements Serializable {
     private Double value;
     private Character typeLetter;
 

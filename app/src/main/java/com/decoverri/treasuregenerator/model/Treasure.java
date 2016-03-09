@@ -2,6 +2,7 @@ package com.decoverri.treasuregenerator.model;
 
 import java.io.Serializable;
 import java.text.NumberFormat;
+import java.util.Locale;
 
 /**
  * Created by decoverri on 29/02/16.
@@ -27,6 +28,6 @@ public class Treasure implements Serializable {
     }
 
     public String getFormattedValue(){
-        return NumberFormat.getInstance().format(value) + " gp";
+        return NumberFormat.getNumberInstance(Locale.US).format(value) + " gp";
     }
 }
