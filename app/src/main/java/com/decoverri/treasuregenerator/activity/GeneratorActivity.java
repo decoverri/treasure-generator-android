@@ -65,8 +65,12 @@ public class GeneratorActivity extends AppCompatActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.putFragment(outState, "values", valuesFragment);
-        fragmentManager.putFragment(outState, "result", resultFragment);
+        if(valuesFragment!=null) {
+            fragmentManager.putFragment(outState, "values", valuesFragment);
+        }
+        if(resultFragment!=null) {
+            fragmentManager.putFragment(outState, "result", resultFragment);
+        }
     }
 
     public void setValuesFragment(Fragment valuesFragment) {
@@ -76,4 +80,5 @@ public class GeneratorActivity extends AppCompatActivity {
     public void setResultFragment(ResultFragment resultFragment) {
         this.resultFragment = resultFragment;
     }
+
 }

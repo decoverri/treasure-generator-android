@@ -35,13 +35,7 @@ public class ValuesFragment extends Fragment {
 
         helper = new ValuesHelper(view, activity);
 
-        selectedType = (TreasureType) getArguments().getSerializable("selectedType");
-        if (savedInstanceState != null) {
-            TreasureType savedType = (TreasureType) savedInstanceState.getSerializable("selectedType");
-            if (savedType != null) {
-                selectedType = savedType;
-            }
-        }
+        setSelectedType(savedInstanceState);
 
         helper.fillViews(this.selectedType);
 
@@ -54,6 +48,16 @@ public class ValuesFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void setSelectedType(@Nullable Bundle savedInstanceState) {
+        selectedType = (TreasureType) getArguments().getSerializable("selectedType");
+        if (savedInstanceState != null) {
+            TreasureType savedType = (TreasureType) savedInstanceState.getSerializable("selectedType");
+            if (savedType != null) {
+                selectedType = savedType;
+            }
+        }
     }
 
     @Override

@@ -29,9 +29,9 @@ public class ResultHelper {
     private TextView title;
     private TableLayout table;
 
-    private final TypeValueDTO typeValue;
-    private final List<Treasure> treasures;
-    private final String formattedTotal;
+    private TypeValueDTO typeValue;
+    private List<Treasure> treasures;
+    private String formattedTotal;
 
     public ResultHelper(View view, ResultFragment fragment) {
         this.fragment = fragment;
@@ -40,12 +40,6 @@ public class ResultHelper {
 
         title = (TextView) view.findViewById(R.id.result_title);
         table = (TableLayout) view.findViewById(R.id.result_table);
-
-        GenerationResult result = (GenerationResult) fragment.getArguments().getSerializable("result");
-        typeValue = result.getTypeValue();
-        treasures = result.getTreasures();
-
-        formattedTotal = getFormattedTotal(result.getTreasures());
     }
 
     private String getFormattedTotal(List<Treasure> treasures) {
@@ -54,6 +48,16 @@ public class ResultHelper {
             total += treasure.getValue();
         }
         return formatter.format(total) + " gp";
+    }
+
+    public void fillData(LayoutInflater inflater, ViewGroup container, GenerationResult result) {
+        typeValue = result.getTypeValue();
+        treasures = result.getTreasures();
+
+        formattedTotal = getFormattedTotal(result.getTreasures());
+
+        setTitle();
+        fillResultTable(inflater, container);
     }
 
     public void setTitle() {
@@ -96,7 +100,7 @@ public class ResultHelper {
 
     public String getShareableResult() {
         StringBuilder builder = new StringBuilder();
-        builder.append(formatter.format(typeValue.getValue()) + " gp of Type "+ typeValue.getTypeLetter() +" treasure:\n\n");
+        builder.append(formatter.format(typeValue.getValue()) + " gp of Type " + typeValue.getTypeLetter() + " treasure:\n\n");
         for (Treasure treasure : treasures) {
             builder.append(treasure.getName() + " - " + treasure.getFormattedValue() + ";\n");
         }

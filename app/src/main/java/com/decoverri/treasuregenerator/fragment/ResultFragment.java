@@ -12,13 +12,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.decoverri.treasuregenerator.R;
+import com.decoverri.treasuregenerator.model.GenerationResult;
 import com.decoverri.treasuregenerator.viewHelper.ResultHelper;
 
 /**
  * Created by decoverri on 29/02/16.
  */
 public class ResultFragment extends Fragment {
+
     private ResultHelper helper;
+
+    private GenerationResult result;
 
     @Nullable
     @Override
@@ -27,12 +31,23 @@ public class ResultFragment extends Fragment {
 
         helper = new ResultHelper(view, this);
 
-        helper.setTitle();
-        helper.fillResultTable(inflater, container);
+        setResult(savedInstanceState);
+
+        helper.fillData(inflater, container, result);
 
         setHasOptionsMenu(true);
 
         return view;
+    }
+
+    private void setResult(@Nullable Bundle savedInstanceState) {
+        result = (GenerationResult) getArguments().getSerializable("result");
+        if(savedInstanceState != null){
+            GenerationResult savedResult = (GenerationResult) savedInstanceState.getSerializable("result");
+            if(savedResult != null){
+                result = savedResult;
+            }
+        }
     }
 
     @Override
@@ -53,5 +68,11 @@ public class ResultFragment extends Fragment {
                 return true;
             }
         });
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable("result", result);
     }
 }
