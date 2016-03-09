@@ -1,66 +1,56 @@
 package com.decoverri.treasuregenerator.fragment;
 
-import android.graphics.Color;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
 
 import com.decoverri.treasuregenerator.R;
-import com.decoverri.treasuregenerator.model.Treasure;
-
-import java.text.NumberFormat;
-import java.util.List;
+import com.decoverri.treasuregenerator.viewHelper.ResultHelper;
 
 /**
  * Created by decoverri on 29/02/16.
  */
 public class ResultFragment extends Fragment {
+    private ResultHelper helper;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.result, container, false);
 
-        TableLayout table = (TableLayout) view.findViewById(R.id.result_table);
+        helper = new ResultHelper(view, this);
 
-        List<Treasure> treasures = (List<Treasure>) getArguments().getSerializable("result");
+        helper.fillResultTable(inflater, container);
 
-        for (Treasure treasure : treasures) {
-            TableRow row = (TableRow) inflater.inflate(R.layout.result_row, container, false);
-
-            TextView name = (TextView) row.findViewById(R.id.result_name);
-            name.setText(treasure.getName());
-
-            TextView value = (TextView) row.findViewById(R.id.result_value);
-            value.setText(treasure.getFormattedValue());
-
-            table.addView(row);
-        }
-
-        TableRow row = (TableRow) inflater.inflate(R.layout.result_row, container, false);
-        row.setBackgroundColor(getResources().getColor(R.color.result_footer));
-
-        TextView name = (TextView) row.findViewById(R.id.result_name);
-        name.setText("Total:");
-
-        TextView value = (TextView) row.findViewById(R.id.result_value);
-        value.setText(getFormattedTotal(treasures));
-
-        table.addView(row);
+        setHasOptionsMenu(true);
 
         return view;
     }
 
-    private String getFormattedTotal(List<Treasure> treasures) {
-        double total = 0;
-        for (Treasure treasure : treasures) {
-            total += treasure.getValue();
-        }
-        return NumberFormat.getInstance().format(total) + " gp";
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        MenuItem shareMenu = menu.add("Share");
+        shareMenu.setIcon(android.R.drawable.ic_menu_share);
+        shareMenu.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
+        final String shareableResult = helper.getShareableResult();
+
+        shareMenu.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_TEXT, shareableResult);
+                startActivity(Intent.createChooser(intent, "Choose your destiny:"));
+                return true;
+            }
+        });
     }
 }
