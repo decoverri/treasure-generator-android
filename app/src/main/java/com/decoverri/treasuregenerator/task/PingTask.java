@@ -3,7 +3,6 @@ package com.decoverri.treasuregenerator.task;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -27,7 +26,6 @@ public class PingTask extends AsyncTask<Object, Object, Integer> {
             connection.setRequestMethod("POST");
             connection.connect();
             int responseCode = connection.getResponseCode();
-            Log.i("DECO", ""+responseCode);
             return responseCode;
         } catch (Exception e) {
             e.printStackTrace();
