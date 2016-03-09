@@ -2,21 +2,21 @@ package com.decoverri.treasuregenerator.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
 import com.decoverri.treasuregenerator.R;
+import com.decoverri.treasuregenerator.fragment.ResultFragment;
 import com.decoverri.treasuregenerator.fragment.TreasureTypesFragment;
-import com.decoverri.treasuregenerator.model.TreasureType;
 import com.decoverri.treasuregenerator.task.PingTask;
-import com.decoverri.treasuregenerator.util.TreasureTypeFactory;
 
 import java.io.Serializable;
-import java.util.List;
 
 public class GeneratorActivity extends AppCompatActivity {
 
-    private List<TreasureType> treasureTypes;
+    private Fragment valuesFragment;
+    private Fragment resultFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,22 +25,26 @@ public class GeneratorActivity extends AppCompatActivity {
 
         new PingTask(this).execute();
 
-        treasureTypes = new TreasureTypeFactory(this).createFromJson(R.raw.treasure_types);
+        changeFragment(new TreasureTypesFragment());
 
-        changeFragmentWithArgument(new TreasureTypesFragment(), "treasureType", (Serializable) treasureTypes);
+        if(savedInstanceState != null){
+            valuesFragment = getSupportFragmentManager().getFragment(savedInstanceState, "values");
+            if(valuesFragment != null){
+                changeReturnableFragment(valuesFragment);
+            }
+
+            resultFragment = getSupportFragmentManager().getFragment(savedInstanceState, "result");
+            if(resultFragment != null){
+                changeReturnableFragment(resultFragment);
+            }
+        }
+
     }
 
     public void changeFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.generator_fragment, fragment);
         transaction.commit();
-    }
-
-    public void changeFragmentWithArgument(Fragment fragment, String key, Serializable argument) {
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(key, argument);
-        fragment.setArguments(bundle);
-        changeFragment(fragment);
     }
 
     public void changeReturnableFragment(Fragment fragment){
@@ -55,5 +59,21 @@ public class GeneratorActivity extends AppCompatActivity {
         bundle.putSerializable(key, argument);
         fragment.setArguments(bundle);
         changeReturnableFragment(fragment);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.putFragment(outState, "values", valuesFragment);
+        fragmentManager.putFragment(outState, "result", resultFragment);
+    }
+
+    public void setValuesFragment(Fragment valuesFragment) {
+        this.valuesFragment = valuesFragment;
+    }
+
+    public void setResultFragment(ResultFragment resultFragment) {
+        this.resultFragment = resultFragment;
     }
 }

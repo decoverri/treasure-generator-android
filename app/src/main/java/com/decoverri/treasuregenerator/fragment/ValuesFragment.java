@@ -21,30 +21,46 @@ import com.decoverri.treasuregenerator.viewHelper.ValuesHelper;
  */
 public class ValuesFragment extends Fragment {
 
+    private GeneratorActivity activity;
+
     private ValuesHelper helper;
+
+    private TreasureType selectedType;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.values, container, false);
-        helper = new ValuesHelper(view, getActivity());
+        activity = (GeneratorActivity) getActivity();
 
-        final TreasureType type = (TreasureType) getArguments().getSerializable("selectedType");
+        helper = new ValuesHelper(view, activity);
 
-        helper.fillViews(type);
+        selectedType = (TreasureType) getArguments().getSerializable("selectedType");
+        if (savedInstanceState != null) {
+            TreasureType savedType = (TreasureType) savedInstanceState.getSerializable("selectedType");
+            if (savedType != null) {
+                selectedType = savedType;
+            }
+        }
+
+        helper.fillViews(this.selectedType);
 
         helper.getValuesView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                GeneratorActivity activity = (GeneratorActivity) getActivity();
-
-                TypeValueDTO typeValue = new TypeValueDTO(((Value) parent.getItemAtPosition(position)).getValue(), type.getLetter());
-
+                TypeValueDTO typeValue = new TypeValueDTO(((Value) parent.getItemAtPosition(position)).getValue(), ValuesFragment.this.selectedType.getLetter());
                 new GenerateTask(activity).execute(typeValue);
             }
         });
 
         return view;
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable("selectedType", selectedType);
+    }
+
 
 }

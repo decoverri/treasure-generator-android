@@ -12,8 +12,9 @@ import com.decoverri.treasuregenerator.R;
 import com.decoverri.treasuregenerator.activity.GeneratorActivity;
 import com.decoverri.treasuregenerator.adapter.TreasureTypeAdapter;
 import com.decoverri.treasuregenerator.model.TreasureType;
+import com.decoverri.treasuregenerator.util.TreasureTypeFactory;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by decoverri on 04/02/16.
@@ -26,7 +27,7 @@ public class TreasureTypesFragment extends Fragment {
 
         GridView treasuresView = (GridView) view.findViewById(R.id.treasure_types);
 
-        List<TreasureType> treasureTypes = (List<TreasureType>) getArguments().getSerializable("treasureType");
+        ArrayList<TreasureType> treasureTypes = new TreasureTypeFactory(getActivity()).createFromJson(R.raw.treasure_types);
 
         treasuresView.setAdapter(new TreasureTypeAdapter(getActivity(), treasureTypes));
 
@@ -34,10 +35,14 @@ public class TreasureTypesFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 GeneratorActivity activity = (GeneratorActivity) getActivity();
-                activity.changeReturnableFragmentWithArgument(new ValuesFragment(), "selectedType", (TreasureType) parent.getItemAtPosition(position));
+                TreasureType selectedType = (TreasureType) parent.getItemAtPosition(position);
+                ValuesFragment valuesFragment = new ValuesFragment();
+                activity.setValuesFragment(valuesFragment);
+                activity.changeReturnableFragmentWithArgument(valuesFragment, "selectedType", selectedType);
             }
         });
 
         return view;
     }
+
 }
