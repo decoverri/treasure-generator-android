@@ -3,7 +3,6 @@ package com.decoverri.treasuregenerator.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,22 +66,4 @@ public class ValuesFragment extends Fragment {
         outState.putSerializable("selectedType", selectedType);
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.i("ciclo", "onPause");
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        Log.i("ciclo", "onStop");
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        activity.setValuesFragment(null);
-        Log.i("ciclo", "onDestroy");
-    }
 }

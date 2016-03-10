@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Choose the treasure type:"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:padding="15dp"/>
 
     <GridView
         android:id="@+id/treasure_types"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:columnWidth="130dp"
+        android:columnWidth="120dp"
         android:numColumns="auto_fit"
         android:gravity="center"
-        android:verticalSpacing="20dp"
         />
 
 </LinearLayout>

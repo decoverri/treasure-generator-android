@@ -16,7 +16,7 @@ import com.decoverri.treasuregenerator.model.TreasureType;
  */
 public class ValuesHelper {
 
-    private LinearLayout header;
+    private View header;
     private Activity activity;
     private TextView nameView;
     private TextView letterView;
@@ -24,7 +24,7 @@ public class ValuesHelper {
 
     public ValuesHelper(View view, Activity activity) {
         this.activity = activity;
-        header = (LinearLayout) view.findViewById(R.id.type_header);
+        header = view.findViewById(R.id.type_header);
         nameView = (TextView) view.findViewById(R.id.type_name);
         letterView = (TextView) view.findViewById(R.id.type_letter);
         valuesView = (ListView) view.findViewById(R.id.values);
