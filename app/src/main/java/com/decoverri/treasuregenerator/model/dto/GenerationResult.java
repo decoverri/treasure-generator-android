@@ -1,4 +1,6 @@
-package com.decoverri.treasuregenerator.model;
+package com.decoverri.treasuregenerator.model.dto;
+
+import com.decoverri.treasuregenerator.model.Treasure;
 
 import java.io.Serializable;
 import java.util.List;
@@ -8,15 +10,15 @@ import java.util.List;
  */
 public class GenerationResult implements Serializable {
 
-    private final TypeValueDTO typeValue;
+    private final TypeValue typeValue;
     private final List<Treasure> treasures;
 
-    public GenerationResult(TypeValueDTO typeValue, List<Treasure> treasures) {
+    public GenerationResult(TypeValue typeValue, List<Treasure> treasures) {
         this.typeValue = typeValue;
         this.treasures = treasures;
     }
 
-    public TypeValueDTO getTypeValue() {
+    public TypeValue getTypeValue() {
         return typeValue;
     }
 

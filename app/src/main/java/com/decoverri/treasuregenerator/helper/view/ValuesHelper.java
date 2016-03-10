@@ -1,4 +1,4 @@
-package com.decoverri.treasuregenerator.viewHelper;
+package com.decoverri.treasuregenerator.helper.view;
 
 import android.app.Activity;
 import android.view.View;
@@ -8,6 +8,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.decoverri.treasuregenerator.R;
+import com.decoverri.treasuregenerator.helper.ResourceHelper;
 import com.decoverri.treasuregenerator.model.TreasureType;
 
 /**
@@ -30,8 +31,7 @@ public class ValuesHelper {
     }
 
     public void fillViews(TreasureType type) {
-        header.setBackgroundColor(activity.getResources().getColor(activity.getResources()
-                .getIdentifier("type" + type.getLetter(), "color", activity.getPackageName())));
+        header.setBackgroundColor(new ResourceHelper(activity).getTreasureColor(type.getLetter()));
 
         nameView.setText(type.getName());
         letterView.setText("(Type " + type.getLetter() + ")");

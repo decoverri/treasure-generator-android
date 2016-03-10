@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.decoverri.treasuregenerator.R;
 import com.decoverri.treasuregenerator.fragment.ResultFragment;
@@ -26,6 +27,8 @@ public class GeneratorActivity extends AppCompatActivity {
         new PingTask(this).execute();
 
         changeFragment(new TreasureTypesFragment());
+
+        Log.i("DECO STATEFUL", "activity onCreate");
 
         if(savedInstanceState != null){
             valuesFragment = getSupportFragmentManager().getFragment(savedInstanceState, "values");

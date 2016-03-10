@@ -7,6 +7,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 import com.decoverri.treasuregenerator.R;
+import com.decoverri.treasuregenerator.helper.ResourceHelper;
 import com.decoverri.treasuregenerator.model.TreasureType;
 
 import java.util.List;
@@ -45,7 +46,7 @@ public class TreasureTypeAdapter extends BaseAdapter {
         TreasureType type = treasureTypes.get(position);
 
         ImageView image = (ImageView) view.findViewById(R.id.treasure_image);
-        image.setImageDrawable(activity.getResources().getDrawable(type.getDrawable()));
+        image.setImageDrawable(new ResourceHelper(activity).getTreasureIcon(type.getLetter()));
         image.setTag(type.getName());
 
         return view;

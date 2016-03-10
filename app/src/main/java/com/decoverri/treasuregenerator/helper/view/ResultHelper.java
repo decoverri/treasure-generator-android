@@ -1,4 +1,4 @@
-package com.decoverri.treasuregenerator.viewHelper;
+package com.decoverri.treasuregenerator.helper.view;
 
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
@@ -10,9 +10,10 @@ import android.widget.TextView;
 
 import com.decoverri.treasuregenerator.R;
 import com.decoverri.treasuregenerator.fragment.ResultFragment;
-import com.decoverri.treasuregenerator.model.GenerationResult;
+import com.decoverri.treasuregenerator.helper.ResourceHelper;
 import com.decoverri.treasuregenerator.model.Treasure;
-import com.decoverri.treasuregenerator.model.TypeValueDTO;
+import com.decoverri.treasuregenerator.model.dto.GenerationResult;
+import com.decoverri.treasuregenerator.model.dto.TypeValue;
 
 import java.text.NumberFormat;
 import java.util.List;
@@ -29,7 +30,7 @@ public class ResultHelper {
     private TextView title;
     private TableLayout table;
 
-    private TypeValueDTO typeValue;
+    private TypeValue typeValue;
     private List<Treasure> treasures;
     private String formattedTotal;
 
@@ -65,8 +66,8 @@ public class ResultHelper {
                 + typeValue.getTypeLetter() + " Treasure";
 
         FragmentActivity activity = fragment.getActivity();
-        title.setTextColor(activity.getResources().getColor(activity.getResources()
-                .getIdentifier("type" + typeValue.getTypeLetter(), "color", activity.getPackageName())));
+        new ResourceHelper(activity).getTreasureColor(typeValue.getTypeLetter());
+        title.setTextColor(new ResourceHelper(activity).getTreasureColor(typeValue.getTypeLetter()));
 
         title.setText(message);
     }

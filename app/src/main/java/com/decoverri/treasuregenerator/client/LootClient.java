@@ -1,12 +1,9 @@
-package com.decoverri.treasuregenerator.task;
-
-import android.util.Log;
+package com.decoverri.treasuregenerator.client;
 
 import com.decoverri.treasuregenerator.model.Treasure;
-import com.decoverri.treasuregenerator.model.TypeValueDTO;
+import com.decoverri.treasuregenerator.model.dto.TypeValue;
 import com.decoverri.treasuregenerator.util.JSONConverter;
 
-import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -24,7 +21,7 @@ public class LootClient {
         converter = new JSONConverter();
     }
 
-    public List<Treasure> post(TypeValueDTO typeValue) {
+    public List<Treasure> post(TypeValue typeValue) {
         String params = "value="+typeValue.getValue().intValue()+"&letter="+typeValue.getTypeLetter();
         List<Treasure> treasures = null;
 

@@ -5,18 +5,18 @@ import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 
 import com.decoverri.treasuregenerator.activity.GeneratorActivity;
+import com.decoverri.treasuregenerator.client.LootClient;
 import com.decoverri.treasuregenerator.fragment.ResultFragment;
-import com.decoverri.treasuregenerator.model.GenerationResult;
+import com.decoverri.treasuregenerator.model.dto.GenerationResult;
 import com.decoverri.treasuregenerator.model.Treasure;
-import com.decoverri.treasuregenerator.model.TypeValueDTO;
+import com.decoverri.treasuregenerator.model.dto.TypeValue;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by decoverri on 29/02/16.
  */
-public class GenerateTask extends AsyncTask<TypeValueDTO, Object, GenerationResult> {
+public class GenerateTask extends AsyncTask<TypeValue, Object, GenerationResult> {
 
     private GeneratorActivity activity;
     private ProgressDialog progress;
@@ -31,8 +31,8 @@ public class GenerateTask extends AsyncTask<TypeValueDTO, Object, GenerationResu
     }
 
     @Override
-    protected GenerationResult doInBackground(TypeValueDTO... params) {
-        TypeValueDTO typeValue = params[0];
+    protected GenerationResult doInBackground(TypeValue... params) {
+        TypeValue typeValue = params[0];
         List<Treasure> treasures = new LootClient().post(typeValue);
         return new GenerationResult(typeValue, treasures);
     }

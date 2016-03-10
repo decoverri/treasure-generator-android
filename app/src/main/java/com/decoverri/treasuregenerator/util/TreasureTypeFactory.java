@@ -42,7 +42,7 @@ public class TreasureTypeFactory {
 
     @NonNull
     private TreasureType createTreasureType(JSONObject typeJSON) throws JSONException {
-        TreasureType type = new TreasureType(getDrawableId(typeJSON.getString("resource")));
+        TreasureType type = new TreasureType();
 
         type.setLetter(typeJSON.getString("letter").charAt(0));
         type.setName(typeJSON.getString("name"));
@@ -50,10 +50,6 @@ public class TreasureTypeFactory {
         type.setValues(getValues(typeJSON));
 
         return type;
-    }
-
-    private int getDrawableId(String drawable) {
-        return activity.getResources().getIdentifier(drawable, "drawable", activity.getPackageName());
     }
 
     @NonNull

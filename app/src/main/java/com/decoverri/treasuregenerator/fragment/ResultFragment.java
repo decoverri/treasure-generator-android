@@ -12,8 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.decoverri.treasuregenerator.R;
-import com.decoverri.treasuregenerator.model.GenerationResult;
-import com.decoverri.treasuregenerator.viewHelper.ResultHelper;
+import com.decoverri.treasuregenerator.activity.GeneratorActivity;
+import com.decoverri.treasuregenerator.helper.view.ResultHelper;
+import com.decoverri.treasuregenerator.model.dto.GenerationResult;
 
 /**
  * Created by decoverri on 29/02/16.
@@ -74,5 +75,11 @@ public class ResultFragment extends Fragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putSerializable("result", result);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ((GeneratorActivity) getActivity()).setResultFragment(null);
     }
 }

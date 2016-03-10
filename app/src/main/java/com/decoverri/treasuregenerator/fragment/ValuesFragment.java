@@ -3,6 +3,7 @@ package com.decoverri.treasuregenerator.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,11 +11,11 @@ import android.widget.AdapterView;
 
 import com.decoverri.treasuregenerator.R;
 import com.decoverri.treasuregenerator.activity.GeneratorActivity;
+import com.decoverri.treasuregenerator.helper.view.ValuesHelper;
 import com.decoverri.treasuregenerator.model.TreasureType;
-import com.decoverri.treasuregenerator.model.TypeValueDTO;
 import com.decoverri.treasuregenerator.model.Value;
+import com.decoverri.treasuregenerator.model.dto.TypeValue;
 import com.decoverri.treasuregenerator.task.GenerateTask;
-import com.decoverri.treasuregenerator.viewHelper.ValuesHelper;
 
 /**
  * Created by decoverri on 12/02/16.
@@ -42,7 +43,7 @@ public class ValuesFragment extends Fragment {
         helper.getValuesView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                TypeValueDTO typeValue = new TypeValueDTO(((Value) parent.getItemAtPosition(position)).getValue(), ValuesFragment.this.selectedType.getLetter());
+                TypeValue typeValue = new TypeValue(((Value) parent.getItemAtPosition(position)).getValue(), ValuesFragment.this.selectedType.getLetter());
                 new GenerateTask(activity).execute(typeValue);
             }
         });
@@ -66,5 +67,22 @@ public class ValuesFragment extends Fragment {
         outState.putSerializable("selectedType", selectedType);
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.i("ciclo", "onPause");
+    }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.i("ciclo", "onStop");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        activity.setValuesFragment(null);
+        Log.i("ciclo", "onDestroy");
+    }
 }
