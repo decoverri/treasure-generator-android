@@ -36,9 +36,7 @@ public class TreasureTypesFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 GeneratorActivity activity = (GeneratorActivity) getActivity();
                 TreasureType selectedType = (TreasureType) parent.getItemAtPosition(position);
-                ValuesFragment valuesFragment = new ValuesFragment();
-                activity.setValuesFragment(valuesFragment);
-                activity.changeReturnableFragmentWithArgument(valuesFragment, "selectedType", selectedType);
+                activity.putValuesFragment("selectedType", selectedType);
             }
         });
 

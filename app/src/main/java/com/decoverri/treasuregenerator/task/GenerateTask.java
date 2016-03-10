@@ -41,9 +41,7 @@ public class GenerateTask extends AsyncTask<TypeValue, Object, GenerationResult>
     protected void onPostExecute(GenerationResult result) {
         progress.dismiss();
         if(result.getTreasures() != null){
-            ResultFragment resultFragment = new ResultFragment();
-            activity.setResultFragment(resultFragment);
-            activity.changeReturnableFragmentWithArgument(resultFragment, "result", result);
+            activity.putResultFragment("result", result);
         }else {
             new AlertDialog.Builder(activity).setTitle("Dragon in the server!").setMessage("Please try again later.")
                     .setPositiveButton("Ok", null).show();

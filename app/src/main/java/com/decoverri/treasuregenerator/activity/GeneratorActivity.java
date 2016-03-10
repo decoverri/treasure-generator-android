@@ -10,6 +10,9 @@ import android.util.Log;
 import com.decoverri.treasuregenerator.R;
 import com.decoverri.treasuregenerator.fragment.ResultFragment;
 import com.decoverri.treasuregenerator.fragment.TreasureTypesFragment;
+import com.decoverri.treasuregenerator.fragment.ValuesFragment;
+import com.decoverri.treasuregenerator.model.TreasureType;
+import com.decoverri.treasuregenerator.model.dto.GenerationResult;
 import com.decoverri.treasuregenerator.task.PingTask;
 
 import java.io.Serializable;
@@ -26,42 +29,100 @@ public class GeneratorActivity extends AppCompatActivity {
 
         new PingTask(this).execute();
 
-        changeFragment(new TreasureTypesFragment());
+        Log.i("DECO TESTE", isTablet()+"");
 
-        Log.i("DECO STATEFUL", "activity onCreate");
+        putTreasureTypesFragment();
 
         if(savedInstanceState != null){
             valuesFragment = getSupportFragmentManager().getFragment(savedInstanceState, "values");
             if(valuesFragment != null){
-                changeReturnableFragment(valuesFragment);
+                putValuesFragment();
             }
 
             resultFragment = getSupportFragmentManager().getFragment(savedInstanceState, "result");
             if(resultFragment != null){
-                changeReturnableFragment(resultFragment);
+                putResultFragment();
             }
         }
 
     }
 
-    public void changeFragment(Fragment fragment) {
+    private void putTreasureTypesFragment() {
+        TreasureTypesFragment fragment = new TreasureTypesFragment();
+        if(isTablet()){
+            changeFragment(R.id.treasure_types_fragment, fragment);
+        }else{
+            changeFragment(R.id.generator_fragment, fragment);
+        }
+    }
+
+    public void putValuesFragment() {
+        ValuesFragment fragment = new ValuesFragment();
+        if (isTablet()){
+            changeFragment(R.id.values_fragment, fragment);
+        }else {
+            changeReturnableFragment(R.id.generator_fragment, fragment);
+        }
+    }
+
+    public void putValuesFragment(String key, TreasureType type) {
+        ValuesFragment fragment = new ValuesFragment();
+        valuesFragment = fragment;
+        if (isTablet()){
+            changeFragmentWithArgument(R.id.values_fragment, fragment, key, type);
+        }else {
+            changeReturnableFragmentWithArgument(R.id.generator_fragment, fragment, key, type);
+        }
+    }
+
+    public void putResultFragment() {
+        ResultFragment fragment = new ResultFragment();
+        if (isTablet()){
+            changeFragment(R.id.result_fragment, fragment);
+        } else {
+            changeReturnableFragment(R.id.generator_fragment, fragment);
+        }
+    }
+
+    public void putResultFragment(String key, GenerationResult result) {
+        ResultFragment fragment = new ResultFragment();
+        this.resultFragment = fragment;
+        if (isTablet()){
+            changeFragmentWithArgument(R.id.result_fragment, fragment, key, result);
+        }else {
+            changeReturnableFragmentWithArgument(R.id.generator_fragment, fragment, key, result);
+        }
+    }
+
+    private boolean isTablet() {
+        return getResources().getBoolean(R.bool.isTablet);
+    }
+
+    private void changeFragment(int frame, Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.generator_fragment, fragment);
+        transaction.replace(frame, fragment);
         transaction.commit();
     }
 
-    public void changeReturnableFragment(Fragment fragment){
+    private void changeFragmentWithArgument(int frame, Fragment fragment, String key, Serializable argument){
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(key, argument);
+        fragment.setArguments(bundle);
+        changeFragment(frame, fragment);
+    }
+
+    private void changeReturnableFragment(int frame, Fragment fragment){
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.generator_fragment, fragment);
+        transaction.replace(frame, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }
 
-    public void changeReturnableFragmentWithArgument(Fragment fragment, String key, Serializable argument){
+    private void changeReturnableFragmentWithArgument(int frame, Fragment fragment, String key, Serializable argument){
         Bundle bundle = new Bundle();
         bundle.putSerializable(key, argument);
         fragment.setArguments(bundle);
-        changeReturnableFragment(fragment);
+        changeReturnableFragment(frame, fragment);
     }
 
     @Override
@@ -75,13 +136,4 @@ public class GeneratorActivity extends AppCompatActivity {
             fragmentManager.putFragment(outState, "result", resultFragment);
         }
     }
-
-    public void setValuesFragment(Fragment valuesFragment) {
-        this.valuesFragment = valuesFragment;
-    }
-
-    public void setResultFragment(ResultFragment resultFragment) {
-        this.resultFragment = resultFragment;
-    }
-
 }
