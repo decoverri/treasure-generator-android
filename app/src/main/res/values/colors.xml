@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#0A2232</color>
     <color name="colorPrimaryDark">#33444B</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#ea6e29</color>
 
     <color name="background">#EFEFE8</color>
     <color name="type_name">#FFFFFF</color>
@@ -21,5 +21,6 @@
     <color name="result_table">#FFFFFF</color>
     <color name="result_header">#F2D495</color>
     <color name="result_footer">#CCCCCC</color>
+    <color name="primary_text_material_light">#ff8400</color>
 
- </resources>
+</resources>
