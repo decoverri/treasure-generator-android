@@ -41,12 +41,13 @@ public class ResultFragment extends Fragment {
     }
 
     private void setResult(@Nullable Bundle savedInstanceState) {
-        result = (GenerationResult) getArguments().getSerializable("result");
         if(savedInstanceState != null){
             GenerationResult savedResult = (GenerationResult) savedInstanceState.getSerializable("result");
             if(savedResult != null){
                 result = savedResult;
             }
+        } else {
+            result = (GenerationResult) getArguments().getSerializable("result");
         }
     }
 

@@ -29,19 +29,20 @@ public class GeneratorActivity extends AppCompatActivity {
 
         new PingTask(this).execute();
 
-        Log.i("DECO TESTE", isTablet()+"");
-
         putTreasureTypesFragment();
+
+        Log.i("DECO", "onCreate da activity");
 
         if(savedInstanceState != null){
             valuesFragment = getSupportFragmentManager().getFragment(savedInstanceState, "values");
             if(valuesFragment != null){
-                putValuesFragment();
+                Log.i("DECO", "putando values fragment");
+                putSavedValuesFragment(valuesFragment);
             }
 
             resultFragment = getSupportFragmentManager().getFragment(savedInstanceState, "result");
             if(resultFragment != null){
-                putResultFragment();
+                putSavedResultFragment(resultFragment);
             }
         }
 
@@ -56,15 +57,6 @@ public class GeneratorActivity extends AppCompatActivity {
         }
     }
 
-    public void putValuesFragment() {
-        ValuesFragment fragment = new ValuesFragment();
-        if (isTablet()){
-            changeFragment(R.id.values_fragment, fragment);
-        }else {
-            changeReturnableFragment(R.id.generator_fragment, fragment);
-        }
-    }
-
     public void putValuesFragment(String key, TreasureType type) {
         ValuesFragment fragment = new ValuesFragment();
         valuesFragment = fragment;
@@ -75,12 +67,11 @@ public class GeneratorActivity extends AppCompatActivity {
         }
     }
 
-    public void putResultFragment() {
-        ResultFragment fragment = new ResultFragment();
+    public void putSavedValuesFragment(Fragment valuesFragment) {
         if (isTablet()){
-            changeFragment(R.id.result_fragment, fragment);
-        } else {
-            changeReturnableFragment(R.id.generator_fragment, fragment);
+            changeFragment(R.id.values_fragment, valuesFragment);
+        }else {
+            changeReturnableFragment(R.id.generator_fragment, valuesFragment);
         }
     }
 
@@ -91,6 +82,14 @@ public class GeneratorActivity extends AppCompatActivity {
             changeFragmentWithArgument(R.id.result_fragment, fragment, key, result);
         }else {
             changeReturnableFragmentWithArgument(R.id.generator_fragment, fragment, key, result);
+        }
+    }
+
+    public void putSavedResultFragment(Fragment resultFragment) {
+        if (isTablet()){
+            changeFragment(R.id.result_fragment, resultFragment);
+        } else {
+            changeReturnableFragment(R.id.generator_fragment, resultFragment);
         }
     }
 
@@ -115,6 +114,7 @@ public class GeneratorActivity extends AppCompatActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(frame, fragment);
         transaction.addToBackStack(null);
+        Log.i("DECO", "commit do " + fragment);
         transaction.commit();
     }
 

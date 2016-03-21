@@ -3,6 +3,7 @@ package com.decoverri.treasuregenerator.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,12 +31,14 @@ public class ValuesFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        Log.i("DECO", "onCreateView!!!!!!");
         View view = inflater.inflate(R.layout.values, container, false);
         activity = (GeneratorActivity) getActivity();
 
         helper = new ValuesHelper(view, activity);
 
         setSelectedType(savedInstanceState);
+        Log.i("DECO", this+"");
 
         helper.fillViews(this.selectedType);
 
@@ -51,12 +54,15 @@ public class ValuesFragment extends Fragment {
     }
 
     private void setSelectedType(@Nullable Bundle savedInstanceState) {
-        selectedType = (TreasureType) getArguments().getSerializable("selectedType");
         if (savedInstanceState != null) {
+            Log.i("DECO", "tem saved instance state");
             TreasureType savedType = (TreasureType) savedInstanceState.getSerializable("selectedType");
             if (savedType != null) {
                 selectedType = savedType;
             }
+        }else {
+            Log.i("DECO", "não tem saved instance state");
+            selectedType = (TreasureType) getArguments().getSerializable("selectedType");
         }
     }
 
@@ -64,6 +70,7 @@ public class ValuesFragment extends Fragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putSerializable("selectedType", selectedType);
+        Log.i("DECO", "salvou state");
     }
 
 }

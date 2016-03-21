@@ -6,7 +6,6 @@ import android.support.v7.app.AlertDialog;
 
 import com.decoverri.treasuregenerator.activity.GeneratorActivity;
 import com.decoverri.treasuregenerator.client.LootClient;
-import com.decoverri.treasuregenerator.fragment.ResultFragment;
 import com.decoverri.treasuregenerator.model.dto.GenerationResult;
 import com.decoverri.treasuregenerator.model.Treasure;
 import com.decoverri.treasuregenerator.model.dto.TypeValue;
