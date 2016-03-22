@@ -24,9 +24,8 @@ public class GeneratorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generator);
 
-        new PingTask(this).execute();
-
         if(savedInstanceState == null){
+            new PingTask(this).execute();
             putTreasureTypesFragment();
         }
 
