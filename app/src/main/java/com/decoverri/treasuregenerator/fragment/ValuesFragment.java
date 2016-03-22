@@ -31,14 +31,12 @@ public class ValuesFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Log.i("DECO", "onCreateView!!!!!!");
         View view = inflater.inflate(R.layout.values, container, false);
         activity = (GeneratorActivity) getActivity();
 
         helper = new ValuesHelper(view, activity);
 
         selectedType = (TreasureType) getArguments().getSerializable("selectedType");
-        Log.i("DECO", this + "");
 
         helper.fillViews(this.selectedType);
 
@@ -52,12 +50,4 @@ public class ValuesFragment extends Fragment {
 
         return view;
     }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putSerializable("selectedType", selectedType);
-        Log.i("DECO", "salvou state");
-    }
-
 }

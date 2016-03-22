@@ -19,9 +19,6 @@ import java.io.Serializable;
 
 public class GeneratorActivity extends AppCompatActivity {
 
-    private Fragment valuesFragment;
-    private Fragment resultFragment;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,22 +26,8 @@ public class GeneratorActivity extends AppCompatActivity {
 
         new PingTask(this).execute();
 
-        putTreasureTypesFragment();
-
-        Log.i("DECO", "onCreate da activity");
-
-        if(savedInstanceState != null){
-            valuesFragment = getSupportFragmentManager().getFragment(savedInstanceState, "values");
-            if(valuesFragment != null){
-                Log.i("DECO", "putando values fragment");
-                putSavedValuesFragment(valuesFragment);
-            }
-
-            resultFragment = getSupportFragmentManager().getFragment(savedInstanceState, "result");
-            if(resultFragment != null){
-                Log.i("DECO", "putando result fragment");
-                putSavedResultFragment(resultFragment);
-            }
+        if(savedInstanceState == null){
+            putTreasureTypesFragment();
         }
 
     }
@@ -53,14 +36,13 @@ public class GeneratorActivity extends AppCompatActivity {
         TreasureTypesFragment fragment = new TreasureTypesFragment();
         if(isTablet()){
             changeFragment(R.id.treasure_types_fragment, fragment);
-        }else{
+        }else {
             changeFragment(R.id.generator_fragment, fragment);
         }
     }
 
     public void putValuesFragment(String key, TreasureType type) {
         ValuesFragment fragment = new ValuesFragment();
-        valuesFragment = fragment;
         if (isTablet()){
             changeFragmentWithArgument(R.id.values_fragment, fragment, key, type);
         }else {
@@ -68,29 +50,12 @@ public class GeneratorActivity extends AppCompatActivity {
         }
     }
 
-    public void putSavedValuesFragment(Fragment valuesFragment) {
-        if (isTablet()){
-            changeFragment(R.id.values_fragment, valuesFragment);
-        }else {
-            changeReturnableFragment(R.id.generator_fragment, valuesFragment);
-        }
-    }
-
     public void putResultFragment(String key, GenerationResult result) {
         ResultFragment fragment = new ResultFragment();
-        this.resultFragment = fragment;
         if (isTablet()){
             changeFragmentWithArgument(R.id.result_fragment, fragment, key, result);
         }else {
             changeReturnableFragmentWithArgument(R.id.generator_fragment, fragment, key, result);
-        }
-    }
-
-    public void putSavedResultFragment(Fragment resultFragment) {
-        if (isTablet()){
-            changeFragment(R.id.result_fragment, resultFragment);
-        } else {
-            changeReturnableFragment(R.id.generator_fragment, resultFragment);
         }
     }
 
@@ -101,7 +66,6 @@ public class GeneratorActivity extends AppCompatActivity {
     private void changeFragment(int frame, Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(frame, fragment);
-        Log.i("DECO", "commit do " + fragment);
         transaction.commit();
     }
 
@@ -116,7 +80,6 @@ public class GeneratorActivity extends AppCompatActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(frame, fragment);
         transaction.addToBackStack(null);
-        Log.i("DECO", "commit do " + fragment);
         transaction.commit();
     }
 
@@ -125,17 +88,5 @@ public class GeneratorActivity extends AppCompatActivity {
         bundle.putSerializable(key, argument);
         fragment.setArguments(bundle);
         changeReturnableFragment(frame, fragment);
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        if(valuesFragment!=null) {
-            fragmentManager.putFragment(outState, "values", valuesFragment);
-        }
-        if(resultFragment!=null) {
-            fragmentManager.putFragment(outState, "result", resultFragment);
-        }
     }
 }

@@ -61,10 +61,4 @@ public class ResultFragment extends Fragment {
             }
         });
     }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putSerializable("result", result);
-    }
 }
