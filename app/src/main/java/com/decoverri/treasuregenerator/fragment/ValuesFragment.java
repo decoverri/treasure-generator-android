@@ -37,8 +37,8 @@ public class ValuesFragment extends Fragment {
 
         helper = new ValuesHelper(view, activity);
 
-        setSelectedType(savedInstanceState);
-        Log.i("DECO", this+"");
+        selectedType = (TreasureType) getArguments().getSerializable("selectedType");
+        Log.i("DECO", this + "");
 
         helper.fillViews(this.selectedType);
 
@@ -51,19 +51,6 @@ public class ValuesFragment extends Fragment {
         });
 
         return view;
-    }
-
-    private void setSelectedType(@Nullable Bundle savedInstanceState) {
-        if (savedInstanceState != null) {
-            Log.i("DECO", "tem saved instance state");
-            TreasureType savedType = (TreasureType) savedInstanceState.getSerializable("selectedType");
-            if (savedType != null) {
-                selectedType = savedType;
-            }
-        }else {
-            Log.i("DECO", "não tem saved instance state");
-            selectedType = (TreasureType) getArguments().getSerializable("selectedType");
-        }
     }
 
     @Override

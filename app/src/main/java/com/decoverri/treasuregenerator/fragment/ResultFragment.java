@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.decoverri.treasuregenerator.R;
+import com.decoverri.treasuregenerator.activity.GeneratorActivity;
 import com.decoverri.treasuregenerator.helper.view.ResultHelper;
 import com.decoverri.treasuregenerator.model.dto.GenerationResult;
 
@@ -31,24 +33,13 @@ public class ResultFragment extends Fragment {
 
         helper = new ResultHelper(view, this);
 
-        setResult(savedInstanceState);
+        result = (GenerationResult) getArguments().getSerializable("result");
 
         helper.fillData(inflater, container, result);
 
         setHasOptionsMenu(true);
 
         return view;
-    }
-
-    private void setResult(@Nullable Bundle savedInstanceState) {
-        if(savedInstanceState != null){
-            GenerationResult savedResult = (GenerationResult) savedInstanceState.getSerializable("result");
-            if(savedResult != null){
-                result = savedResult;
-            }
-        } else {
-            result = (GenerationResult) getArguments().getSerializable("result");
-        }
     }
 
     @Override

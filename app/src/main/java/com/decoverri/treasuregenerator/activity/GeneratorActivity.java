@@ -42,6 +42,7 @@ public class GeneratorActivity extends AppCompatActivity {
 
             resultFragment = getSupportFragmentManager().getFragment(savedInstanceState, "result");
             if(resultFragment != null){
+                Log.i("DECO", "putando result fragment");
                 putSavedResultFragment(resultFragment);
             }
         }
@@ -100,6 +101,7 @@ public class GeneratorActivity extends AppCompatActivity {
     private void changeFragment(int frame, Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(frame, fragment);
+        Log.i("DECO", "commit do " + fragment);
         transaction.commit();
     }
 
