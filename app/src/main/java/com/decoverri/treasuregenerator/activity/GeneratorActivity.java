@@ -14,6 +14,7 @@ import com.decoverri.treasuregenerator.fragment.ValuesFragment;
 import com.decoverri.treasuregenerator.model.TreasureType;
 import com.decoverri.treasuregenerator.model.dto.GenerationResult;
 import com.decoverri.treasuregenerator.task.PingTask;
+import com.decoverri.treasuregenerator.util.TypefaceUtils;
 
 import java.io.Serializable;
 
@@ -22,6 +23,9 @@ public class GeneratorActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        TypefaceUtils.overrideFont(this, "SERIF", "fonts/Alegreya.ttf");
+
         setContentView(R.layout.activity_generator);
 
         if(savedInstanceState == null){

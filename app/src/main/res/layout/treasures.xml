@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Choose the treasure type:"
-        android:textSize="20sp"
+        android:textSize="28sp"
         android:gravity="center"
         android:padding="15dp"/>
 
