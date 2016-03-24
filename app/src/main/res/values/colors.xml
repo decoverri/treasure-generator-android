@@ -22,4 +22,7 @@
     <color name="result_header">#F2D495</color>
     <color name="result_footer">#CCCCCC</color>
 
+    <color name="noConnectionColor">#CCCCCC</color>
+    <color name="noConnectionBackground">#333333</color>
+
 </resources>

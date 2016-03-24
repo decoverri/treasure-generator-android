@@ -1,6 +1,9 @@
 package com.decoverri.treasuregenerator.activity;
 
+import android.content.Context;
 import android.graphics.Typeface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -8,6 +11,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.decoverri.treasuregenerator.R;
@@ -35,11 +40,27 @@ public class GeneratorActivity extends AppCompatActivity {
         title.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/MedievalSharp.ttf"));
         setSupportActionBar(toolbar);
 
+        if(!isOnline()){
+            showNoInternetConnectionWarning();
+        }
+
         if(savedInstanceState == null){
-            new PingTask(this).execute();
+            if(isOnline()) {
+                new PingTask(this).execute();
+            }
             putTreasureTypesFragment();
         }
 
+    }
+
+    private void showNoInternetConnectionWarning() {
+        TextView noConnection = (TextView) findViewById(R.id.no_connection);
+        noConnection.setVisibility(View.VISIBLE);
+    }
+
+    private void hideNoInternetConnectionWarning() {
+        TextView noConnection = (TextView) findViewById(R.id.no_connection);
+        noConnection.setVisibility(View.GONE);
     }
 
     private void putTreasureTypesFragment() {
@@ -98,5 +119,11 @@ public class GeneratorActivity extends AppCompatActivity {
         bundle.putSerializable(key, argument);
         fragment.setArguments(bundle);
         changeReturnableFragment(frame, fragment);
+    }
+
+    public boolean isOnline() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo info = connectivityManager.getActiveNetworkInfo();
+        return info != null && info.isConnected();
     }
 }

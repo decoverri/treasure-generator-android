@@ -3,6 +3,7 @@ package com.decoverri.treasuregenerator.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,8 +44,16 @@ public class ValuesFragment extends Fragment {
         helper.getValuesView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                TypeValue typeValue = new TypeValue(((Value) parent.getItemAtPosition(position)).getValue(), ValuesFragment.this.selectedType.getLetter());
-                new GenerateTask(activity).execute(typeValue);
+                if (activity.isOnline()) {
+                    TypeValue typeValue = new TypeValue(((Value) parent.getItemAtPosition(position)).getValue(), ValuesFragment.this.selectedType.getLetter());
+                    new GenerateTask(activity).execute(typeValue);
+                } else {
+                    new AlertDialog.Builder(activity)
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setTitle("No Internet Connection")
+                            .setMessage("Maybe you could try a Sending spell?")
+                            .setPositiveButton("Dismiss",null).show();
+                }
             }
         });
 

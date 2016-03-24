@@ -35,6 +35,18 @@
 
     </android.support.design.widget.AppBarLayout>
 
+    <TextView
+        android:id="@+id/no_connection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No internet connection"
+        android:visibility="gone"
+        android:gravity="center"
+        android:textColor="@color/noConnectionColor"
+        android:background="@color/noConnectionBackground"
+        android:padding="6dp"
+        android:textSize="20sp"/>
+
     <FrameLayout
         android:id="@+id/generator_fragment"
         android:layout_width="match_parent"
