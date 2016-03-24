@@ -1,6 +1,9 @@
 package com.decoverri.treasuregenerator.activity;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -28,6 +31,17 @@ import java.io.Serializable;
 
 public class GeneratorActivity extends AppCompatActivity {
 
+    private BroadcastReceiver internetChangeReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if(isOnline()) {
+                hideNoInternetConnectionWarning();
+            }else {
+                showNoInternetConnectionWarning();
+            }
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +65,20 @@ public class GeneratorActivity extends AppCompatActivity {
             putTreasureTypesFragment();
         }
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(android.net.ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(internetChangeReceiver, filter);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unregisterReceiver(internetChangeReceiver);
     }
 
     private void showNoInternetConnectionWarning() {
