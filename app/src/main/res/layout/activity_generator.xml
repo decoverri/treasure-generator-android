@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".activity.GeneratorActivity"
     android:background="@color/background"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:animateLayoutChanges="true">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
