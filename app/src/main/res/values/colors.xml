@@ -19,6 +19,7 @@
     <color name="typeI">#b01e23</color>
 
     <color name="result_table">#FFFFFF</color>
+    <color name="result_even_color">#F9F9F9</color>
     <color name="result_header">#F2D495</color>
     <color name="result_footer">#CCCCCC</color>
 

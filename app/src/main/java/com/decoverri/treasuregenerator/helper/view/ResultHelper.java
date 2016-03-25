@@ -1,6 +1,7 @@
 package com.decoverri.treasuregenerator.helper.view;
 
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,8 +75,14 @@ public class ResultHelper {
 
     public void fillResultTable(LayoutInflater inflater, ViewGroup container) {
 
+        int index = 0;
         for (Treasure treasure : treasures) {
             TableRow row = (TableRow) inflater.inflate(R.layout.result_row, container, false);
+
+            if(index % 2 != 0){
+                row.setBackgroundColor(ContextCompat.getColor(fragment.getActivity(), R.color.result_even_color));
+            }
+            index++;
 
             TextView name = (TextView) row.findViewById(R.id.result_name);
             name.setText(treasure.getName());
@@ -87,7 +94,7 @@ public class ResultHelper {
         }
 
         TableRow row = (TableRow) inflater.inflate(R.layout.result_row, container, false);
-        row.setBackgroundColor(fragment.getResources().getColor(R.color.result_footer));
+        row.setBackgroundColor(ContextCompat.getColor(fragment.getActivity(), R.color.result_footer));
 
         TextView name = (TextView) row.findViewById(R.id.result_name);
         name.setText("Total:");
