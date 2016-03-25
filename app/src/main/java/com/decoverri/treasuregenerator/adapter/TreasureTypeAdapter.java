@@ -41,7 +41,7 @@ public class TreasureTypeAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View view = activity.getLayoutInflater().inflate(R.layout.treasure_icon, parent, false);
+        View view = activity.getLayoutInflater().inflate(R.layout.treasure_type_icon, parent, false);
 
         TreasureType type = treasureTypes.get(position);
 
