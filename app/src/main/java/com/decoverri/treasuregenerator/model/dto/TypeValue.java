@@ -1,17 +1,19 @@
 package com.decoverri.treasuregenerator.model.dto;
 
+import com.decoverri.treasuregenerator.model.TreasureType;
+
 import java.io.Serializable;
 
 /**
  * Created by decoverri on 29/02/16.
  */
 public class TypeValue implements Serializable {
+    private TreasureType type;
     private Double value;
-    private Character typeLetter;
 
-    public TypeValue(Double value, Character typeLetter) {
+    public TypeValue(Double value, TreasureType type) {
         this.value = value;
-        this.typeLetter = typeLetter;
+        this.type = type;
     }
 
     public Double getValue() {
@@ -19,6 +21,10 @@ public class TypeValue implements Serializable {
     }
 
     public Character getTypeLetter() {
-        return typeLetter;
+        return type.getLetter();
+    }
+
+    public String getTypeName(){
+        return type.getName();
     }
 }

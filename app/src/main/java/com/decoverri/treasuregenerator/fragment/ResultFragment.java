@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -55,7 +56,7 @@ public class ResultFragment extends Fragment {
             public boolean onMenuItemClick(MenuItem item) {
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("text/plain");
-                intent.putExtra(Intent.EXTRA_TEXT, shareableResult);
+                intent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(shareableResult));
                 startActivity(Intent.createChooser(intent, "Choose your destiny:"));
                 return true;
             }

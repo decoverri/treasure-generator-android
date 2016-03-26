@@ -45,7 +45,7 @@ public class ValuesFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (activity.isOnline()) {
-                    TypeValue typeValue = new TypeValue(((Value) parent.getItemAtPosition(position)).getValue(), ValuesFragment.this.selectedType.getLetter());
+                    TypeValue typeValue = new TypeValue(((Value) parent.getItemAtPosition(position)).getValue(), ValuesFragment.this.selectedType);
                     new GenerateTask(activity).execute(typeValue);
                 } else {
                     new AlertDialog.Builder(activity)

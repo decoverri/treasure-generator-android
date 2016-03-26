@@ -17,7 +17,9 @@
                 android:gravity="center"
                 android:paddingTop="10dp"
                 android:paddingLeft="3dp"
-                android:paddingRight="3dp"/>
+                android:paddingRight="3dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"/>
 
             <TableLayout
                 android:id="@+id/result_table"
